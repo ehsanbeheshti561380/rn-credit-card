@@ -66,7 +66,6 @@ export type LibraryProps = {
   LottieView?: any
   horizontalStart?: boolean
   formOnly?: boolean
-  requiresName?: boolean
   backgroundImage?: React.ReactNode
   translations?: Translations
   inputColors?: InputColors

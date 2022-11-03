@@ -13,7 +13,6 @@ const LibraryContext = createContext<ContextProps>({
   horizontalStart: true,
   fonts: {},
   overrides: {},
-  requiresName: true,
   inputColors: {},
   // @ts-ignore
   translations: {},

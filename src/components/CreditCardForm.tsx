@@ -28,7 +28,6 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
     horizontalStart = true,
     translations: parentTranslations,
     overrides,
-    requiresName = true,
   } = props
   const translations = getTranslations(parentTranslations)
   const { trigger, watch } = useFormContext()
@@ -81,11 +80,6 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
       scrollRef.current?.scrollTo({ x: (focusedField + 1) * inputWidth })
     }
 
-    if (focusedField === CardFields.CardNumber && !requiresName) {
-      expirationRef.current.focus()
-      return
-    }
-
     if (focusedField === CardFields.CVV) {
       setFocusedField(null)
       setIsHorizontal(false)
@@ -109,7 +103,6 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
           bold: props.fonts?.bold || 'RobotoMono_700Bold',
         },
         translations,
-        requiresName,
       }}
     >
       <View style={styles.container}>
@@ -149,29 +142,27 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
             onFocus={() => setFocusedField(CardFields.CardNumber)}
             onValid={goNext}
           />
-          {requiresName && (
-            <FormTextField
-              style={textFieldStyle}
-              ref={holderNameRef}
-              name="holderName"
-              autoCompleteType="name"
-              label={translations.cardHolderName}
-              rules={{
-                required: translations.cardHolderNameRequired,
-                validate: {
-                  isValid: (value: string) => {
-                    return (
-                      cardValidator.cardholderName(value).isValid ||
-                      translations.cardHolderNameInvalid
-                    )
-                  },
+          <FormTextField
+            style={textFieldStyle}
+            ref={holderNameRef}
+            name="holderName"
+            autoCompleteType="name"
+            label={translations.cardHolderName}
+            rules={{
+              required: translations.cardHolderNameRequired,
+              validate: {
+                isValid: (value: string) => {
+                  return (
+                    cardValidator.cardholderName(value).isValid ||
+                    translations.cardHolderNameInvalid
+                  )
                 },
-              }}
-              autoCorrect={false}
-              onSubmitEditing={goNext}
-              onFocus={() => setFocusedField(CardFields.CardHolderName)}
-            />
-          )}
+              },
+            }}
+            autoCorrect={false}
+            onSubmitEditing={goNext}
+            onFocus={() => setFocusedField(CardFields.CardHolderName)}
+          />
           <View style={styles.row}>
             <FormTextField
               style={[

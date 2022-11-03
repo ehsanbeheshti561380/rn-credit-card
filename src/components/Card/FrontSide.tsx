@@ -19,7 +19,7 @@ type Props = {
 }
 
 const FrontSide: React.FC<Props> = ({ model, cardType, focusedField }) => {
-  const { overrides, translations, requiresName } = useContext(LibraryContext)
+  const { overrides, translations } = useContext(LibraryContext)
   const [numberLayout, setNumberLayout] = useState<LayoutRectangle | null>(null)
   const [nameLayout, setNameLayout] = useState<LayoutRectangle | null>(null)
   const [
@@ -89,28 +89,26 @@ const FrontSide: React.FC<Props> = ({ model, cardType, focusedField }) => {
       />
       <View style={styles.labelContainer}>
         <Text style={[styles.labelText, overrides.labelText]}>
-          {requiresName ? translations.cardHolderName.toUpperCase() : ''}
+          {translations.cardHolderName.toUpperCase()}
         </Text>
         <Text style={[styles.labelText, overrides.labelText]}>
           {translations.expiration}
         </Text>
       </View>
-      {requiresName && (
-        <Text
-          style={[
-            styles.bottomText,
-            styles.nameText,
-            {
-              color: model.holderName ? 'white' : 'gray',
-            },
-            overrides.cardHolderPreview,
-          ]}
-          numberOfLines={1}
-          onLayout={({ nativeEvent }) => setNameLayout(nativeEvent.layout)}
-        >
-          {model.holderName.toUpperCase() || translations.nameSurname}
-        </Text>
-      )}
+      <Text
+        style={[
+          styles.bottomText,
+          styles.nameText,
+          {
+            color: model.holderName ? 'white' : 'gray',
+          },
+          overrides.cardHolderPreview,
+        ]}
+        numberOfLines={1}
+        onLayout={({ nativeEvent }) => setNameLayout(nativeEvent.layout)}
+      >
+        {model.holderName.toUpperCase() || translations.nameSurname}
+      </Text>
       <PlaceholderText
         style={[
           styles.bottomText,
@@ -124,13 +122,13 @@ const FrontSide: React.FC<Props> = ({ model, cardType, focusedField }) => {
       <Animated.View
         style={[
           styles.outline,
+          overrides.outline,
           {
             left: positionAnim.x,
             top: positionAnim.y,
             width: sizeAnim.x,
             height: sizeAnim.y,
           },
-          overrides.outline,
         ]}
       />
     </>
