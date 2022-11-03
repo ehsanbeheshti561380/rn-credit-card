@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     margin: 8,
+    marginHorizontal: 15
   },
   numberText: {
     position: 'absolute',

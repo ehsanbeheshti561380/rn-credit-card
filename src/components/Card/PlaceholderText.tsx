@@ -25,7 +25,7 @@ const PlaceholderText: React.FC<Props> = (props) => {
 
 const styles = StyleSheet.create({
   placeholder: {
-    color: 'gray',
+    color: 'rgba(255,255,255,0.5)',
   },
 })
 

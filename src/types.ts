@@ -71,4 +71,6 @@ export type LibraryProps = {
   inputColors?: InputColors
   fonts?: Fonts
   overrides?: Overrides
+  inputFocus?: boolean
+  nextButton?: (next: () => void, title: string) => void
 }

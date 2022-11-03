@@ -28,6 +28,7 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
     horizontalStart = true,
     translations: parentTranslations,
     overrides,
+    nextButton
   } = props
   const translations = getTranslations(parentTranslations)
   const { trigger, watch } = useFormContext()
@@ -219,7 +220,11 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
           </View>
         </ScrollView>
         <Conditional condition={isHorizontal}>
-          <Button
+          {!!nextButton ? nextButton(goNext, 
+              focusedField === CardFields.CVV
+                ? translations.done
+                : translations.next
+            ) : <Button
             style={[styles.button, overrides?.button]}
             title={
               focusedField === CardFields.CVV
@@ -227,7 +232,7 @@ const CreditCardForm: React.FC<LibraryProps> = (props) => {
                 : translations.next
             }
             onPress={goNext}
-          />
+          />}
         </Conditional>
       </View>
     </LibraryContext.Provider>

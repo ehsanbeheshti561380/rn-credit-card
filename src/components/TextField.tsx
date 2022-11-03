@@ -27,7 +27,7 @@ const TextField = React.forwardRef<TextInput, Props>((props, ref) => {
     onFocus,
     ...restOfProps
   } = props
-  const { inputColors = {}, fonts, overrides } = useContext(LibraryContext)
+  const { inputColors = {}, fonts, overrides, inputFocus } = useContext(LibraryContext)
   const {
     errored: errorColor = '#B00020',
     focused: focusedColor = '#080F9C',
@@ -39,7 +39,7 @@ const TextField = React.forwardRef<TextInput, Props>((props, ref) => {
   const focusAnim = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
-    Animated.timing(focusAnim, {
+    if (inputFocus) Animated.timing(focusAnim, {
       toValue: isFocused || !!value ? 1 : 0,
       duration: 150,
       easing: Easing.bezier(0.4, 0, 0.2, 1),
@@ -61,7 +61,7 @@ const TextField = React.forwardRef<TextInput, Props>((props, ref) => {
             fontFamily: fonts.regular,
           },
           overrides.input,
-          {
+          inputFocus && {
             borderColor: color,
           },
         ]}
@@ -86,7 +86,7 @@ const TextField = React.forwardRef<TextInput, Props>((props, ref) => {
         <Animated.View
           style={[
             styles.labelContainer,
-            {
+            inputFocus && {
               transform: [
                 {
                   scale: focusAnim.interpolate({
@@ -115,7 +115,7 @@ const TextField = React.forwardRef<TextInput, Props>((props, ref) => {
             style={[
               styles.label,
               overrides.inputLabel,
-              {
+              inputFocus && {
                 color,
               },
             ]}

@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     height: 200,
     paddingVertical: 24,
     borderRadius: 12,
+    marginBottom: 10
   },
   background: {
     position: 'absolute',
